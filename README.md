@@ -1,5 +1,6 @@
 # 42SP_get_next_line
-Segundo projeto realizado na 42 São Paulo. :) 
+
+Second project carried out at 42 São Paulo. :)
 
 _
 
