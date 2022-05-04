@@ -33,3 +33,18 @@ _
 <li><a href="">Analyse and Avoid Memory Leaks</a></li>
 <li><a href="">Linked Lists (used in bonus part)</a></li>
 </ul>
+
+<h2>Use cases to consider</h2>
+<ul>
+<li>BUFFER_SIZE=1</li>
+<li>BUFFER_SIZE=42</li>
+<li>BUFFER_SIZE=1000000</li>
+<li>BUFFER_SIZE=-32</li>
+<li>FD VALID</li>
+<li>FD Invalid</li>
+<li>FD Empty</li>
+<li>FD Multiple lines</li>
+<li>FD Single line</li>
+<li>FD with only multiples '\n'</li>
+<li>After reach EOF, verify if has something in accumulator</li>
+</ul>
