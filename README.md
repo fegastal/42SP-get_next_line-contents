@@ -22,3 +22,14 @@ get_next_line() read a file descriptor and search for a '\n'(a line). If fd is -
 
 - RETURN VALUE
 On success, the line read. If no '\n' is found and it reaches end of file, return what was read. If there is nothing to read, return NULL.
+
+_
+
+<h2>Useful Links</h2>
+<ul>
+<li><a href="https://github.com/fegastal/42SP_get_next_line/blob/main/my-notes-about-the-project.pdf.pdf">Static Variables</a></li>
+<li><a href="https://github.com/fegastal/42SP_get_next_line/blob/main/memory_CS50x_harvard.pdf">Pointers</a></li>
+<li><a href="https://github.com/fegastal/42SP_get_next_line/blob/main/dynamic_allocation_sizeof.pdf">Memory allocation</a></li>
+<li><a href="">Analyse and Avoid Memory Leaks</a></li>
+<li><a href="">Linked Lists (used in bonus part)</a></li>
+</ul>
