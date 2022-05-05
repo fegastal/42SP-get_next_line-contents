@@ -10,14 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h" //Inclusão do header do GNL (lá estará presente o valor do BUFFER_SIZE);
+#include "get_next_line.h"
+//Inclusão do header do GNL (lá estará presente o valor do BUFFER_SIZE);
 
 // Nesse arquivo, temos a função principal chamada get_next_line e mais 3 funções auxiliares;
 // O uso do ponteiro duplo é justificado pelo bônus (otimização apenas);
 
+// Função de verificação do buffer:
 static char	*verif_buffer(char **storage, char **buffer, size_t buffer_len)
 {
-	// Função de verificação do buffer;
 	char	*ret; // Variável de retorno;
 	char	*tmp; // Variável temporária;
 	size_t	i; // Variável para contador;
@@ -37,7 +38,8 @@ static char	*verif_buffer(char **storage, char **buffer, size_t buffer_len)
 	if (!ret) // Condição de segurança;
 		return (NULL); // Retorna nulo;
 	ft_memcpy(ret, *storage, i); // Aqui, eu copio a storage para o retorno;
-	ft_memcpy(ret + i, *buffer, buffer_len); // Aqui, eu digo a posição final do buffer e passo para o retorno, copiando para depois concatenar;
+	ft_memcpy(ret + i, *buffer, buffer_len); // Aqui, eu digo a posição final
+	// do buffer e passo para o retorno, copiando para depois concatenar;
 	ret [i + buffer_len] = '\0'; // Passando o caractere de fim de linha para o retorno;
 	tmp = ft_strdup((*buffer) + buffer_len); // Duplicando e passando para a temporária;
 	if (*storage) // Se houver algo dentro da storage;
@@ -46,17 +48,19 @@ static char	*verif_buffer(char **storage, char **buffer, size_t buffer_len)
 	return (ret); // Retornar o que houver lá;
 }
 
+// Função responsável pela armazenagem na storage (acumuladora);
+// Observação: usado o duplo pointer para reutilizar para o bônus:
 static char	*put_storage(char **storage, char **buffer, size_t i)
 {
-	// Função responsável pela armazenagem na storage (acumuladora);
-	// Observação: usado o duplo pointer para reutilizar para o bônus;
 	char	*tmp; // Declaração de variável temporária;
 	char	*ret; // Declaração de variável de retorno;
 
 	ret = NULL; // Declarando inicialmente que o retorno seja nulo;
-	if (i <= 0) //Se o i for negativo ou nulo, ou seja, significa que não há mais nada para ler, então vou simplesmente LIMPAR a storage;
+	if (i <= 0) //Se o i for negativo ou nulo, ou seja, significa
+	// que não há mais nada para ler, então vou simplesmente LIMPAR a storage;
 	{
-		if (i == 0 && *storage) //Se não há nada para ler, então passar o que sobrou para a storage e retornar o que houver lá;
+		if (i == 0 && *storage) //Se não há nada para ler,
+		// então passar o que sobrou para a storage e retornar o que houver lá;
 		{
 			ret = (*storage); // Passando para o retorno o que há na storage;
 			*storage = NULL; // Reinicializa a storage com um null;
@@ -73,7 +77,8 @@ static char	*put_storage(char **storage, char **buffer, size_t i)
 	tmp = ft_strchr(*buffer, '\n'); // Procura pelo \n no buffer através da função strchr;
 	if (tmp) // Se existir um '\n' na variável temporária;
 		ret = verif_buffer(storage, buffer, (tmp - *buffer) + 1);
-		// Faremos uma verificação no buffer a partir da diferença do que há na temporária para o buffer e acrescentamos 1;
+		// Faremos uma verificação no buffer a partir da diferença
+		// do que há na temporária para o buffer e acrescentamos 1;
 		// Daí isso vai ser vinculado ao retorno;
 	else // Se não existir um '\n' na temporária;
 	{
@@ -86,10 +91,10 @@ static char	*put_storage(char **storage, char **buffer, size_t i)
 	return (ret); // Retornamos o valor de retorno;
 }
 
+// Nessa função, apenas verificaremos a situação do storage;
+// Se eu já achei um '\n', para o sistema identificar isso, preciso colocar um '\0' no fim da frase para retorná-la:
 static char	*verif_storage(char **storage, size_t size)
 {
-	// Nessa função, apenas verificaremos a situação do storage;
-	// Se eu já achei um '\n', para o sistema identificar isso, preciso colocar um '\0' no fim da frase para retorná-la;
 	char	*tmp; // Para isso, usaremos uma variável temporária;
 	char	*ret; // A variável de retorno;
 	size_t	i; // Um contador de caracteres;
@@ -104,17 +109,18 @@ static char	*verif_storage(char **storage, size_t size)
 	while (++ i != size) // Enquanto não chegar ao fim (no tamanho total);
 		ret[i] = (*storage)[i]; // Aqui, vou passando tudo o que houver no storage para o meu retorno;
 	ret[i] = '\0'; // Depois, coloco um caractere nulo no fim, para poder retornar;
-	tmp = ft_strdup(*storage + i); // Na variável temporária, chamamos a função de duplicação, para que o que há ANTES do '\n' seja passado
+	tmp = ft_strdup(*storage + i); // Na variável temporária, chamamos a
+	// função de duplicação, para que o que há ANTES do '\n' seja passado
 	// para o retorno, sem prejudicar o que há depois (para não perder informação);
 	free (*storage); // Liberamos, portanto, a memória alocada na storage
 	(*storage) = tmp; // Deixamos apenas o que há DEPOIS do '\n', presente em tmp;
 	return (ret); // Retornamos isso;
 }
 
+// Minha função principal possui um file descriptor como parâmetro
+// É a partir dela que vou chamando as funções auxiliares:
 char	*get_next_line(int fd)
 {
-// Minha função principal possui um file descriptor como parâmetro
-// É a partir dela que vou chamando as funções auxiliares
 	static char	*storage;
 	// Essa variável precisa ser necessariamente estática para poder MANTER o valor que for acumulado no storage
 	char		*buffer;
