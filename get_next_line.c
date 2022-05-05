@@ -110,8 +110,7 @@ static char	*verif_storage(char **storage, size_t size)
 	(*storage) = tmp; // Deixamos apenas o que há DEPOIS do '\n', presente em tmp;
 	return (ret); // Retornamos isso;
 }
-	
-}
+
 char	*get_next_line(int fd)
 {
 // Minha função principal possui um file descriptor como parâmetro
