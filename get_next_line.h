@@ -6,7 +6,7 @@
 /*   By: fgastal- <fgastal-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 21:34:31 by fgastal-          #+#    #+#             */
-/*   Updated: 2022/05/05 21:34:59 by fgastal-         ###   ########.fr       */
+/*   Updated: 2022/05/08 23:59:58 by fgastal-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,21 @@
 # include <fcntl.h>
 # include <unistd.h>
 
-char	*ft_strchr(const char *s, int c);
-
-char	*ft_exstrchr(char *s);
+char	*verif(char *s);
 
 size_t	ft_strlen(const char *str);
 
-char	*ft_strnldup(char *s1);
+size_t	ft_strlcpy(char *dst, char *src, size_t size);
 
-char	*ft_strjoin(char *s1, char *s2);
+char	*ft_strnldup(char *s1);
 
 char	*ft_strdup(const char *s1);
 
-char	*get_next_line(int fd);
+char	*ft_strchr(const char *s, int c);
 
-size_t	ft_strlcpy(char *dst, char *src, size_t size);
+char	*ft_strjoin(char *s1, char *s2);
+
+char	*get_next_line(int fd);
 
 #endif
 
