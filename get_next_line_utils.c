@@ -12,107 +12,104 @@
 
 #include "get_next_line.h" // Inclusão do header
 
-// Nesse arquivo, teremos funções auxiliares para o arquivo get_next_line.c
-// Nota-se que houveram algumas alterações em relação às mesmas funções presentes no libft, por exemplo;
-
-// Usamos a ft_strlen quando queremos fazer a verificação do buffer:
-size_t	ft_strlen(const char *str) // Nota-se que não utiliza-se um pointer na função, porque retornamos um size_t;
+size_t	ft_strlcpy(char *dst, char *src, size_t size) // Função de cópia de uma string source(src) terminada em nulo para o fim da destiny(dst).
 {
-	size_t	i; // Declaração de um contador;
-	char	*cp; // Declaração de contador na string de cópia;
-
-	i = 0; // Inicializando-se com i valendo 0;
-	cp = (char *)(str); // A variável de cópia assumirá o valor (com type cast) da string original;
-	while (cp && *cp) // Verificação de segurança (existência);
-	{
-		cp++; // Contador na string de cópia;
-		i++; // Contador na string original;
-	}
-	return (i); // Retorno do tamanho da string;
-}
-
-// Usamos a ft_memcpy para realizar a função de cópia:
-void	*ft_memcpy(void *dest, const void *src, size_t n)
-{
-	size_t	i; // Declaração ode um contador;
-
-	if (!src && !dest) // Condição de segurança entre as duas strings;
-		return (0); // Retorna zero nessa situação;
-	i = 0; // Inicializando o valor de i em 0;
-	while (i < n) // Enquanto o i não chegar no fim;
-	{
-		((char *)dest)[i] = ((const char *)src)[i]; // O contador vai andando nas mesmas posições das duas strings e vai copiando;
-		i++; // Incrementa-se o contador;
-	}
-	return (dest); // Retorna a string de destino;
-}
-
-// Função semelhante à strcat, mas com alocação de memória:
-char	*ft_strjoin(const char *s1, const char *s2)
-{
-	size_t	i; // Declaração de contador;
-	size_t	s1len; // Comprimento da str1;
-	size_t	s2len; // Comprimento da str2;
-	char	*ptr; // Declaração de um pointer;
-
-	i = 0; // Inicializando o contador em 0;
-	ptr = NULL; // Inicializando o contador em nulo;
-	if (!s1 && !s2) // Apenas erro (condição de segurança);
-		return (NULL); // Retorno de nulo;
-	if (s1 && !s2) // Se a string 2 não existir;
-		return (ft_strdup(s1)); // Duplicar a string 1 como retorno;
-	else if (!s1 && s2) // Se a string 1 não existir;
-		return (ft_strdup(s2)); // Duplicar a string 2 como retorno;
-	s1len = ft_strlen(s1); // Verificando o tamanho da string 1;
-	s2len = ft_strlen(s2); // Verificando o tamanho da string 2;
-	ptr = (char *)malloc(sizeof(char) * (s1len + s2len + 1)); //alocando memória para a concatenação das duas strings + 1 '\0' no fim;
-	if (!ptr) // Condição de existência do pointer;
-		return (NULL); // Retorno de nulo;
-	while (i < (s1len + s2len + 1)) // Enquanto o contador i não chegar ao fim;
-		ptr[i++] = 0; // Vai incrementando o i e o pointer é igual a zero;
-	ft_memcpy(ptr, s1, s1len); // Copio a string 1 inteira;
-	ft_memcpy(ptr + s1len, s2, s2len); // Digo a posição final da string 1 e depois copio a partir dessa posição a string 2;
-	ptr[s1len + s2len] = '\0'; // Incluo esse caractere para finalizar a string;
-	return (ptr); // Retorno o valor do pointer;
-}
-
-// Função de duplicação de uma string:
-char	*ft_strdup(const char *s)
-{
-	char	*str; // Declaração de uma variável para a string duplicada;
-	int		len; // Declaração de variável que conta o tamanho;
-
-	if (s) // Condição de existência;
-	{
-		len = ft_strlen(s); // Passando a função de contagem de tamanho para a variável len;
-		if (!len) // Condição de existência novamente;
-			return (NULL); // Retorno de nulo;
-		str = (char *)malloc(sizeof(char) * (len + 1)); // Alocando memória para o tamanho todo + 1 caractere '\0' no fim;
-		if (!str) // Condição de existência;
-			return (NULL); // Retorno de nulo;
-		ft_memcpy(str, s, len); // Uso da função de cópia para fazer a duplicação;
-		*(str + len) = '\0'; // Inclusão do caractere '\0' no fim da duplicação;
-		return (str); // Retorno da string duplicada;
-	}
-	return (NULL); // Se a string original não existir, retornar nulo;
-}
-
-// Função para encontrar um determinado caractere (no caso, '\n') em uma string:
-char	*ft_strchr(const char *s, int c)
-{
-	char	*tmp; // Declaração de uma variável temporária;
+	size_t	i; // Declaração de uma variável i, do tipo size_t
 	
-	if (s) // Condição de existência da string original;
+	if (!dst || !src) // Se a destiny ou a source não existirem
+		return (0); // Retorna zero
+	else if (!size) // Enquanto a variável size não existir
+		return (ft_strlen(src)); // Iremos ter como retorno o valor de retorno da função strlen, com a string de origem como parâmetro (aqui temos recursividade)
+	i = 0; // Inicializando-se i como zero
+	while (src[i] && i < (size - 1)) // Enquanto o i na string de origem não chegar ao fim e o i for menor que o valor de size (total) - 1 ('\0')
 	{
-		tmp = (char *)(s); // Colocamos para a temporária o que há na string original;
-		while (*tmp) // Condição de existência;
-		{
-			if (*tmp == (char)c) // Se encontrarmos, na temporária, o caractere c especificado;
-				return (tmp); // Retornamos a temporária;
-			tmp++; // Incrementa a temporária;
-		}
-		if (*tmp == c) // Se a temporária for igual a apenas o caractere;
-			return (tmp); // Retornamos a temporária;
+		dst[i] = src[i]; // O valor de i na destiny tem que ser igual ao valor de i na source (está copiando de uma para a outra)
+		i++; // Incrementar o valor de i
 	}
-	return (NULL); // Retorna nulo caso a string original não exista;
+	dst[i] = '\0'; // Quando o i na destiny chegar no caractere de fim de linha
+	return (ft_strlen(src)); // Retornar o valor de retorno presente em ft_strlen
+}
+
+char	*ft_exstrchr(char *s)
+{
+	int		i; // Declaração da variável i
+	char	*tmp; // Declaração da variável temporária tmp
+
+	i = 0; // Inicializando-se i igual a zero
+	while (s[i] != '\n' && s[i]) // Enquanto o i na string s não chegar em '\n' e '\0'
+		i++; // Incrementar o valor de i
+	if (s[i] == '\0') // Quando o i encontrar o valor de '\0'
+	{
+		free(s); // Liberar a memória alocada na string s
+		return (NULL); // Retornar nulo
+	}
+	tmp = malloc((ft_strlen(s) - i) + 1); // Se não chegar em '\n', alocar memória para a variável temporária, com tamanho da string total - i ('\n) e + 1 ('\0')
+	if (!tmp) // Se a temporária não existir (não houver nada armazenado lá dentro)
+		return (NULL); // Retornar nulo
+	ft_strlcpy(tmp, s + i + 1, ft_strlen(s) - i + 1); // Se ela existir, fazer a função de cópia com os parâmetros indicados
+	free(s); // Liberar a memoria alocada em s após isso
+	return (tmp); // Retornar o valor da temporária
+}
+
+size_t	ft_strlen(const char *str) // Função de determinação de tamanho de uma string
+{
+	size_t	i; // Declarando-se a variável i
+
+	i = 0; // Inicializando-se em zero
+	if (!str) // Enquanto a string não existir
+		return (0); // Retornar zero
+	while (str[i] != '\0') // Quando i, que percorreu a string, não chegar no caractere nulo final
+		i++; // Contador em i
+	return (i); // Retornar o valor de i quando encontrar o caractere nulo final
+}
+
+char	*ft_strnldup(char *s1) // Função de duplicação de duas strings, com recursividade (ft_strlcpy)
+{
+	char	*str; // Declaração de uma variável str
+	size_t	i; // Declaração de um contador i
+
+	i = 0; // Inicializando a variável i em zero
+	if (!s1) // Se a string original não existir
+		return (0); // Retornar zero
+	while (s1[i] && s1[i] != '\n') // Enquanto o i na string original não chegar no fim '\0' e o i não for o caractere '\n'
+		i++; // Contador em i
+	if (s1[i] == '\n') // Se o i encontrar o '\n'
+		str = (char *)malloc(sizeof(char) * (i + 2)); // Alocar memória em str (string duplicada) para o valor em bytes de i + 2 bytes;
+	else
+		str = (char *)malloc(sizeof(char) * (i + 1)); // Se não encontrar o '\n', alocar apenas para o valor em bytes de i + 1 byte;
+	if (!str) // Se a string duplicada não existir
+		return (NULL); // Retornar nulo (condição de erro)
+	ft_strlcpy(str, s1, i + 2); // Porém, se a string duplicada existir, usaremos a função de cópia de uma string, com os determinados parâmetros
+	if (str[0] == '\0') // Se a casa inicial [0] da string duplicada for '\0'
+	{
+		free (str); // Liberar a memória alocada na string duplicada
+		return (NULL); // e retornar nulo
+	}
+	return (str); // Se a casa inicial [0] da duplicada não for '\0', retornar então o valor presente em str
+}
+
+char	*ft_strjoin(char *s1, char *s2) // Função para unir duas string s1 e s2
+{
+	char	*str; // Declaração da variável temporária str
+	size_t	i; // Declaração da variável i
+	size_t	j; // Declaração da variável j
+
+	str = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1)); // Alocação de memória para str, de acordo com o tamanho das duas strings s1, s2 e +1 por causa do '\0'
+	if (!str) // Se a string str não existir
+		return (NULL); // Retornar nulo
+	i = 0; // Inicializando-se i em zero
+	j = 0; // Inicializando-se j em zero
+	while (s1[i]) // Enquanto o i percorrendo s1 não chegar no fim
+	{
+		str[j++] = s1[i]; // o j (incrementado) presente na string str tem que ser igual ao valor de i presente na string s1
+		i++; // Incrementar também o valor de i
+	}
+	i = 0; // Considerando-se que o valor de i seja zero
+	while (s2[i]) // Se o i na string s2 não chegar ao fim
+	{
+		str[j++] = s2[i]; // O valor de j (incrementado) na string temporária tem que ser igual ao valor de i na string s2
+		i++; // Incrementar também o valor de i
+	}
+	str[j] = 0; // Se o valor de j na string temporária str for igual a zero (quando terminar a junção)
+	return (str); // Retornar o valor de str (temporária, com as duas strings unidas)
 }
