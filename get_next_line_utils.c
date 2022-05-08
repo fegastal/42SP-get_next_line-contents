@@ -6,7 +6,7 @@
 /*   By: fgastal- <fgastal-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 21:36:24 by fgastal-          #+#    #+#             */
-/*   Updated: 2022/05/05 22:01:54 by fgastal-         ###   ########.fr       */
+/*   Updated: 2022/05/09 00:40:33 by fgastal-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 size_t	ft_strlcpy(char *dst, char *src, size_t size) // Função de cópia de uma string source(src) terminada em nulo para o fim da destiny(dst).
 {
 	size_t	i; // Declaração de uma variável i, do tipo size_t
-	
+
 	if (!dst || !src) // Se a destiny ou a source não existirem
 		return (0); // Retorna zero
 	else if (!size) // Enquanto a variável size não existir
@@ -30,7 +30,7 @@ size_t	ft_strlcpy(char *dst, char *src, size_t size) // Função de cópia de um
 	return (ft_strlen(src)); // Retornar o valor de retorno presente em ft_strlen
 }
 
-char	*ft_exstrchr(char *s)
+char	*verif(char *s)
 {
 	int		i; // Declaração da variável i
 	char	*tmp; // Declaração da variável temporária tmp
@@ -91,10 +91,11 @@ char	*ft_strnldup(char *s1) // Função de duplicação de duas strings, com rec
 char	*ft_strjoin(char *s1, char *s2) // Função para unir duas string s1 e s2
 {
 	char	*str; // Declaração da variável temporária str
-	size_t	i; // Declaração da variável i
+	size_t	i; // Declaração da variável temporária str
 	size_t	j; // Declaração da variável j
 
-	str = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1)); // Alocação de memória para str, de acordo com o tamanho das duas strings s1, s2 e +1 por causa do '\0'
+	str = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	// Alocação de memória para str, de acordo com o tamanho das duas strings s1, s2 e +1 por causa do '\0'
 	if (!str) // Se a string str não existir
 		return (NULL); // Retornar nulo
 	i = 0; // Inicializando-se i em zero
