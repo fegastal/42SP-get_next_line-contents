@@ -32,6 +32,7 @@ _
 <li><a href="https://github.com/fegastal/42SP_get_next_line/blob/main/dynamic_allocation_sizeof.pdf">Memory allocation</a></li>
 <li><a href="">Analyse and Avoid Memory Leaks</a></li>
 <li><a href="">Linked Lists (used in bonus part)</a></li>
+<li><a href="https://docs.google.com/presentation/d/14qBClvbDBtAzHGtXFdDfxXg1-kvE7Tq-aO5THwi3ANU/edit?usp=sharing">Solved Project Presentation</a></li>
 </ul>
 
 <h2>Use cases to consider</h2>
