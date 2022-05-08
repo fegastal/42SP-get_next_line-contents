@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fgastal- <fgastal-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/05 22:47:11 by fgastal-          #+#    #+#             */
+/*   Updated: 2022/05/08 23:30:13 by fgastal-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 size_t	ft_strlcpy(char *dst, char *src, size_t size)
@@ -18,7 +30,7 @@ size_t	ft_strlcpy(char *dst, char *src, size_t size)
 	return (ft_strlen(src));
 }
 
-char	*ft_exstrchr(char *s)
+char	*verif(char *s)
 {
 	int		i;
 	char	*tmp;
