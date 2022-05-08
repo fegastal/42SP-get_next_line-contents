@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: fgastal- <fgastal-@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/05 22:47:01 by fgastal-          #+#    #+#             */
-/*   Updated: 2022/05/08 23:29:37 by fgastal-         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "get_next_line.h"
 
 char	*ft_strchr(const char *s, int c)
@@ -30,7 +18,8 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-static char	*get_nl(int fd, char *buffer, char *accumulator, char *current_line)
+static char	*get_comp(int fd, char *buffer,
+char *accumulator, char *current_line)
 {
 	int		i;
 
